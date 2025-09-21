@@ -2,7 +2,9 @@
 title: "p8105_hw1_tl3391"
 author: "Tong Liu"
 date: "2025-09-21"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(moderndive)
 data("early_january_weather")
 ```
-
+##Problem 1
 ```{r}
 names(early_january_weather)
 summary(early_january_weather$temp)
@@ -35,13 +37,35 @@ The mean temperature is 39.58212
 
 ```{r}
 library(ggplot2)
-ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+p = ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
   geom_point() +
   labs(
     title = "Temperature vs Time",
     x = "Time",
     y = "Temperature"
   )
-
-ggsave("scatter.pdf", height = 4, width = 6)
 ```
+
+##Problem 2
+```{r}
+set.seed(123)
+num  = rnorm(10)
+logivec = num > 0
+char = letters[1:10]
+fac = factor(sample(c("A", "B", "C"), size = 10, replace = TRUE))
+```
+
+```{r}
+mean(num)
+mean(logivec)
+mean(char)
+mean(fac)
+```
+There are outputs for num and logivec, but the results are NA for character and factor vector.
+
+```{r}
+logivec_num  = as.numeric(logivec)    
+char_num  = as.numeric(char)    
+fac_num  = as.numeric(fac)   
+```
+The logical vector turns in to 1 and 0 from True and False,and factor vector turns into 1,2, and 3 from A, B, and C. However, the char all become NA.The reason we are not getting the mean for char and factor vector is because they are characters and not numerical values, if we change the format of values into numerical values, we will be able to use operation functions to it.
